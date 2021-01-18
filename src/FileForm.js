@@ -3,7 +3,9 @@ import {Modal, Button} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 
-
+/**
+ * Form to fill out per file
+ */
 class FileForm extends Component
 {
     state = {
@@ -22,7 +24,7 @@ class FileForm extends Component
 
     render() {
         return (
-            <div>
+            <div className="formComponent">
                 <Button variant="success" onClick={this.openModal}><FontAwesomeIcon icon={faPlus} /> Add New File</Button>
                 <Modal show={this.state.isOpen} onHide={this.closeModal}>
                     <form onSubmit={this.onSubmit}>

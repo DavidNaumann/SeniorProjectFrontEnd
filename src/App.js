@@ -1,15 +1,67 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HeaderNavbar from './HeaderNavbar';
-import FileInputForm from './FileInputForm';
+import FileControl from './FileControl';
+import {Component} from "react";
+import { io } from 'socket.io-client';
 
-function App() {
+const socket = io('http://localhost:4001');
+const { v4: uuidv4 } = require('uuid');
 
-  return (
-        <div className="App">
-          <HeaderNavbar />
-          <FileInputForm/>
-        </div>
-  );
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            files: [],
+        }
+
+        // Functions for dealing with events such as insertion and deletion
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+    }
+
+    onSubmit = (event) => {
+        event.preventDefault();
+
+        const data = new FormData(event.target);
+        const time = new Date(Date.now())
+
+        let file = {
+            name: data.get("filename"),
+            category: data.get("category"),
+            date: time.toLocaleString(),
+            uuid: uuidv4()
+        }
+
+        // TODO: form handling and cleaning to make sure inputs are correctly formatted
+
+        socket.emit('insert file', file);
+    }
+
+    onDelete = (uuid) => {
+        socket.emit('delete file', uuid);
+    }
+
+    componentDidMount() {
+        socket.on("connect", () => {
+            socket.emit('get files');
+        });
+
+        socket.on('receive files', (files) => {
+            this.setState({files: files});
+        });
+    }
+
+
+    render() {
+        return (
+            <div className="App">
+                <HeaderNavbar/>
+                <FileControl files={this.state.files} onSubmit={this.onSubmit} onDelete={this.onDelete} />
+            </div>
+        );
+    }
 }
 
 export default App;

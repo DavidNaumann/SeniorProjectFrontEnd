@@ -1,35 +1,33 @@
 import {Component} from "react";
-import {Button, ButtonGroup, Table} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faSearch, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {Table} from "react-bootstrap";
 
+import File from "./File";
+
+/**
+ * Files stores all of the File objects that are on the database
+ */
 class Files extends Component {
-    createFiles(file) {
-        console.log("File: ", file);
+    createFiles(file, index) {
         return (
-            <tr>
-                <td>{file.id}</td>
-                <td>{file.name}</td>
-                <td>{file.date}</td>
-                <td>{file.category}</td>
-                <td>
-                    <ButtonGroup aria-label="File Controls">
-                        <Button variant="primary"><FontAwesomeIcon icon={faArrowUp} /></Button>
-                        <Button variant="secondary"><FontAwesomeIcon icon={faSearch} /></Button>
-                        <Button variant="danger"><FontAwesomeIcon icon={faTrash} /></Button>
-                    </ButtonGroup>
-                </td>
-            </tr>
+            <File file={file} index={index} onDelete={this.onDelete} />
         )
+    }
+
+    onDelete = (uuid) => {
+        this.props.onDelete(uuid);
     }
 
     render() {
         let files = this.props.files;
-        let listFiles = files.reverse().map(this.createFiles);
+        let listFiles = files.map((item, index) =>
+        {
+            return this.createFiles(item, index)
+        });
 
+        // TODO: better error handling/showing what is wrong (not connected, no files, etc.)
         if(files === undefined || files.length === 0)
         {
-            listFiles = (<tr>
+            listFiles = (<tr key={"-1"}>
               <td></td>
               <td>No files currently loaded</td>
               <td></td>
@@ -40,7 +38,7 @@ class Files extends Component {
         }
 
         return (
-            <div class="groupFiles">
+            <div className="myFiles">
                 <Table responsive>
                     <thead>
                         <tr>
