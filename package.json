@@ -22,7 +22,7 @@
     "postinstall": "git clone https://github.com/DavidNaumann/SeniorProjectBackEnd.git backend && cd backend && npm install",
     "start": "react-scripts start",
     "start-backend": "(cd backend && npm run start)",
-    "dev": "npm-run-all --parallel start start-backend",
+    "dev": "concurrently \"npm run start\" \"npm run start-backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
