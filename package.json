@@ -19,14 +19,14 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "init-backend": "git clone https://github.com/DavidNaumann/SeniorProjectBackEnd.git backend && cd backend && npm install",
+    "postinstall": "git clone https://github.com/DavidNaumann/SeniorProjectBackEnd.git backend && cd backend && npm install",
     "start": "react-scripts start",
     "start-backend": "(cd backend && npm run start)",
     "dev": "npm-run-all --parallel start start-backend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "clean": "rimraf node_modules && rimraf backend"
+    "clean": "(cd backend && npm run clean) && npm run clean "
   },
   "eslintConfig": {
     "extends": [
