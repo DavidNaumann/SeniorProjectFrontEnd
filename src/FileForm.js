@@ -1,5 +1,5 @@
 import {React, Component} from "react";
-import {Modal, Button} from "react-bootstrap";
+import {Modal, Button, Form, FormControl, Row, Col, InputGroup} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 
@@ -9,7 +9,8 @@ import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 class FileForm extends Component
 {
     state = {
-        isOpen: false
+        isOpen: false,
+        search: ""
     };
 
     openModal = () => this.setState(({isOpen: true}));
@@ -22,10 +23,39 @@ class FileForm extends Component
         this.props.onSubmit(event);
     }
 
+    onSearch = (event) =>
+    {
+        event.preventDefault();
+
+        let search = event.target.value;
+
+        this.setState({search: search});
+
+        this.props.onSearch(search);
+    }
+
+    onClear = (event) => {
+        event.preventDefault();
+
+        this.setState({search: ""});
+
+        this.props.onSearch("");
+    }
+
     render() {
         return (
             <div className="formComponent">
-                <Button variant="success" onClick={this.openModal}><FontAwesomeIcon icon={faPlus} /> Add New File</Button>
+                <Row className="m-1">
+                    <Col><Button variant="outline-success" onClick={this.openModal}><FontAwesomeIcon icon={faPlus} /> Add New File</Button></Col>
+                    <Col>
+                        <InputGroup>
+                            <FormControl type="text" onChange={this.onSearch} value={this.state.search} id="search" name="search" placeholder="Search" />
+                            <InputGroup.Append>
+                                <Button variant="outline-danger" onClick={this.onClear}><FontAwesomeIcon icon={faTimes} /></Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Col>
+                </Row>
                 <Modal show={this.state.isOpen} onHide={this.closeModal}>
                     <form onSubmit={this.onSubmit}>
                     <Modal.Header closeButton>
@@ -37,10 +67,12 @@ class FileForm extends Component
                             <input type='text' className="form-control" name="filename" id="filename" />
                             <label htmlFor="category">Category: </label>
                             <input type='text' className="form-control" name="category" id="category" />
+                            <label htmlFor="creation_date">Creation Date: </label>
+                            <input type='date' className="form-control" name="creation_date" id="creation_date" />
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="success" type="submit"><FontAwesomeIcon icon={faPlus}/> Add New File</Button>
+                        <Button variant="success" type  ="submit"><FontAwesomeIcon icon={faPlus}/> Add New File</Button>
                         <Button variant="danger" onClick={this.closeModal}><FontAwesomeIcon icon={faTimes} /> Cancel</Button>
                     </Modal.Footer>
                     </form>

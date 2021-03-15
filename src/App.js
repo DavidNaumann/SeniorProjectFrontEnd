@@ -24,13 +24,20 @@ class App extends Component {
     onSubmit = (event) => {
         event.preventDefault();
 
-        const data = new FormData(event.target);
-        const time = new Date(Date.now())
 
+        // TODO: FORCE DATE ENTRY (OR MAKE IT PERMISSIBLE)
+
+        const data = new FormData(event.target);
+        const time = new Date(Date.now());
+        const time_str = data.get("creation_date");
+
+        const creation_date = new Date(time_str + "T00:00");
+        console.log(creation_date.toLocaleString());
         let file = {
             name: data.get("filename"),
             category: data.get("category"),
             date: time.toLocaleString(),
+            creation_date: creation_date.toLocaleDateString(),
             uuid: uuidv4()
         }
 

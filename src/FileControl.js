@@ -6,10 +6,25 @@ import FileForm from "./FileForm";
  *
  */
 class FileControl extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+          search: ""
+        };
+    }
+
+
     onSubmit = (event) =>
     {
         event.preventDefault();
         this.props.onSubmit(event);
+    }
+
+    onSearch = (search) =>
+    {
+        this.setState({search: search});
     }
 
     onDelete = (uuid) =>
@@ -20,8 +35,8 @@ class FileControl extends Component {
     render() {
         return (
             <div className="FilesContainer">
-                <FileForm onSubmit={this.onSubmit}/>
-                <Files files={this.props.files} onDelete={this.onDelete} />
+                <FileForm onSubmit={this.onSubmit} onSearch={this.onSearch} />
+                <Files files={this.props.files} onDelete={this.onDelete} search={this.state.search} />
             </div>
         );
     }

@@ -26,7 +26,7 @@ class File extends Component {
                 <td>{this.index.toString()}</td>
                 <td>{this.props.file.name}</td>
                 <td>{this.props.file.date}</td>
-                <td>{this.props.file.category}</td>
+                <td>{this.props.file.creation_date}</td>
                 <td>
                     <ButtonGroup aria-label="File Controls">
                         <Button variant="primary"><FontAwesomeIcon icon={faArrowUp} /></Button>
