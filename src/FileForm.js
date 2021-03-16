@@ -13,6 +13,18 @@ class FileForm extends Component
         search: ""
     };
 
+    getToday = () => {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = ("0" + (date.getMonth() + 1)).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+
+        const today = year + "-" + month + "-" + day;
+
+        return today;
+    }
+
+
     openModal = () => this.setState(({isOpen: true}));
     closeModal = () => this.setState(({isOpen: false}));
 
@@ -64,11 +76,11 @@ class FileForm extends Component
                     <Modal.Body>
                         <div className="form-group">
                             <label htmlFor="filename">File Name: </label>
-                            <input type='text' className="form-control" name="filename" id="filename" />
+                            <input type='text' className="form-control" name="filename" id="filename" required />
                             <label htmlFor="category">Category: </label>
                             <input type='text' className="form-control" name="category" id="category" />
                             <label htmlFor="creation_date">Creation Date: </label>
-                            <input type='date' className="form-control" name="creation_date" id="creation_date" />
+                            <input type='date' className="form-control" defaultValue={this.getToday()} name="creation_date" id="creation_date" />
                         </div>
                     </Modal.Body>
                     <Modal.Footer>

@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Table} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faSort} from "@fortawesome/free-solid-svg-icons";
 
@@ -67,33 +67,24 @@ class Files extends Component {
         });
 
         // TODO: better error handling/showing what is wrong (not connected, no files, etc.)
-            if(files.length === 0 || files === undefined) {
-                listFiles = (<tr key={"-1"}>
-                        <td></td>
-                        <td>No files currently loaded</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+            if(files.length === 0) {
+                listFiles = (<Row className="m-1">
+                        <Col>No files currently loaded</Col>
+                    </Row>
                 );
             }
 
         return (
-            <div className="myFiles">
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th><b>#</b></th>
-                            <th><b>File</b> <a href="#" onClick={() => this.setSortedField('name')} ><FontAwesomeIcon icon={faSort}/></a></th>
-                            <th><b>Insertion Date</b> <a href="#" onClick={() => this.setSortedField('date')} ><FontAwesomeIcon icon={faSort}/></a></th>
-                            <th><b>Creation Date</b> <a href="#" onClick={() => this.setSortedField('creation_date')} ><FontAwesomeIcon icon={faSort}/></a></th>
-                            <th><b>Controls</b></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div className="myFiles m-1">
+                    <Row className="m-1">
+                        <Col><b>#</b></Col>
+                        <Col><b>File</b> <a href="#" onClick={() => this.setSortedField('name')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Insertion Date</b> <a href="#" onClick={() => this.setSortedField('date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Creation Date</b> <a href="#" onClick={() => this.setSortedField('creation_date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Category</b> <a href="#" onClick={()=> this.setSortedField("category")}><FontAwesomeIcon icon={faSort} /></a></Col>
+                        <Col><b>Controls</b></Col>
+                    </Row>
                     {listFiles}
-                    </tbody>
-                </Table>
             </div>
         )
     }
