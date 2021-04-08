@@ -39,7 +39,7 @@ class Files extends Component {
         let search = this.props.search;
 
         if (search) {
-            files = files.filter(x => x.name.toLowerCase().includes(search.toLowerCase()));
+            files = files.filter(x => (x.name.toLowerCase()+x.date+x.creation_date+x.category.toLowerCase()).includes(search.toLowerCase()));
         }
 
         let key = this.state.setSorted;
@@ -47,8 +47,8 @@ class Files extends Component {
 
         files.sort(function (a, b) {
 
-            let keyA = a[key];
-            let keyB = b[key];
+            let keyA = a[key].toLowerCase();
+            let keyB = b[key].toLowerCase();
 
             if(key === "date" || key === "creation_date") {
                 keyA = new Date(a[key]);

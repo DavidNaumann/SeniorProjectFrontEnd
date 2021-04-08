@@ -38,7 +38,8 @@ class App extends Component {
             category: data.get("category"),
             date: time.toLocaleString(),
             creation_date: creation_date.toLocaleDateString(),
-            uuid: uuidv4()
+            uuid: uuidv4(),
+            drawer: parseInt(data.get("drawer")),
         }
 
         // TODO: form handling and cleaning to make sure inputs are correctly formatted

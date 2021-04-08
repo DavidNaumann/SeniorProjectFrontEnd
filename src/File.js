@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Button, ButtonGroup} from "react-bootstrap";
+import {Button, ButtonGroup, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowUp, faSearch, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Row, Col} from "react-bootstrap";
@@ -31,9 +31,27 @@ class File extends Component {
                 <Col className="d-none d-sm-block">{this.props.file.category}</Col>
                 <Col>
                     <ButtonGroup aria-label="File Controls">
-                        <Button variant="primary"><FontAwesomeIcon icon={faArrowUp} /></Button>
-                        <Button variant="secondary"><FontAwesomeIcon icon={faSearch} /></Button>
-                        <Button variant="danger" onClick={this.onDelete}><FontAwesomeIcon icon={faTrash} /></Button>
+                        <OverlayTrigger
+                            placement="top"
+                            delay={{show: 250, hide: 400}}
+                            overlay={<Tooltip id="primary-tooltip" >Get File</Tooltip>}
+                        >
+                            <Button variant="primary"><FontAwesomeIcon icon={faArrowUp} /></Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                            placement="top"
+                            delay={{show: 250, hide: 400}}
+                            overlay={<Tooltip id="primary-tooltip" >Find File</Tooltip>}
+                        >
+                            <Button variant="secondary"><FontAwesomeIcon icon={faSearch} /></Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                            placement="top"
+                            delay={{show: 250, hide: 400}}
+                            overlay={<Tooltip id="primary-tooltip" >Remove File</Tooltip>}
+                        >
+                            <Button variant="danger" onClick={this.onDelete}><FontAwesomeIcon icon={faTrash} /></Button>
+                        </OverlayTrigger>
                     </ButtonGroup>
                 </Col>
             </Row>

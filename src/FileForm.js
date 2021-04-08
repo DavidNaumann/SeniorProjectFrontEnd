@@ -1,5 +1,5 @@
 import {React, Component} from "react";
-import {Modal, Button, Form, FormControl, Row, Col, InputGroup} from "react-bootstrap";
+import {Modal, Button, FormControl, Row, Col, InputGroup, OverlayTrigger, Tooltip, ButtonGroup} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 
@@ -63,7 +63,13 @@ class FileForm extends Component
                         <InputGroup>
                             <FormControl type="text" onChange={this.onSearch} value={this.state.search} id="search" name="search" placeholder="Search" />
                             <InputGroup.Append>
+                                <OverlayTrigger
+                                    placement="left"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={<Tooltip id="primary-tooltip" >Clear Search</Tooltip>}
+                                >
                                 <Button variant="outline-danger" onClick={this.onClear}><FontAwesomeIcon icon={faTimes} /></Button>
+                                </OverlayTrigger>
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
@@ -81,6 +87,11 @@ class FileForm extends Component
                             <input type='text' className="form-control" name="category" id="category" />
                             <label htmlFor="creation_date">Creation Date: </label>
                             <input type='date' className="form-control" defaultValue={this.getToday()} name="creation_date" id="creation_date" />
+                            <label htmlFor="drawer">Drawer: </label>
+                            <select id="drawer" name="drawer" className="form-control">
+                                <option value="1">1</option>
+                                <option value="1">2</option>
+                            </select>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
