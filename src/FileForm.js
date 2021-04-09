@@ -9,10 +9,13 @@ import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 class FileForm extends Component
 {
     state = {
+        // is modal open
         isOpen: false,
+        // search term to pass to FormControl
         search: ""
     };
 
+    // gets the date for today in yyyy-mm-dd format
     getToday = () => {
         let date = new Date();
         let year = date.getFullYear();
@@ -24,10 +27,20 @@ class FileForm extends Component
         return today;
     }
 
-
-    openModal = () => this.setState(({isOpen: true}));
+    // function for opening File Form Modal
+    openModal = () => {
+        if(this.props.length < 3) {
+            this.setState(({isOpen: true}));
+        }
+        else
+        {
+            alert("File system full remove file to insert new item!");
+        }
+    }
+    // function for closing modal
     closeModal = () => this.setState(({isOpen: false}));
 
+    // on FileForm submit (inserting new file)
     onSubmit = (event) =>
     {
         event.preventDefault();
@@ -35,6 +48,7 @@ class FileForm extends Component
         this.props.onSubmit(event);
     }
 
+    // if user types into the search bar automatically filter
     onSearch = (event) =>
     {
         event.preventDefault();
@@ -46,6 +60,7 @@ class FileForm extends Component
         this.props.onSearch(search);
     }
 
+    // on clearing of search bar (red x is clicked)
     onClear = (event) => {
         event.preventDefault();
 
