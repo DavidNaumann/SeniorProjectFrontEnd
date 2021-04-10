@@ -38,10 +38,17 @@ class FileControl extends Component {
     // on deletion of file
     onDelete = (uuid) =>
     {
-        this.setState({
-            openCloseDrawerModal: true,
-        });
-        this.props.onDelete(uuid);
+        // checks to make sure file box isn't busy
+        if(!this.props.busy) {
+            this.setState({
+                openCloseDrawerModal: true,
+            });
+            this.props.onDelete(uuid);
+        }
+        else
+        {
+            alert("File system currently in use by other user!");
+        }
     }
 
     // on closing of the modal
@@ -57,7 +64,7 @@ class FileControl extends Component {
     render() {
         return (
             <div className="FilesContainer">
-                <FileForm onSubmit={this.onSubmit} onSearch={this.onSearch} length={this.props.files.length} />
+                <FileForm onSubmit={this.onSubmit} onSearch={this.onSearch} length={this.props.files.length} busy={this.props.busy} />
                 <Files files={this.props.files} onDelete={this.onDelete} search={this.state.search} />
                 <CloseDrawerForm onClose={this.onClose} isOpen={this.state.openCloseDrawerModal} />
             </div>

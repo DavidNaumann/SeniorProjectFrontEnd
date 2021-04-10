@@ -29,12 +29,18 @@ class FileForm extends Component
 
     // function for opening File Form Modal
     openModal = () => {
-        if(this.props.length < 3) {
+        if(this.props.length < 3 && !this.props.busy) {
             this.setState(({isOpen: true}));
         }
         else
         {
-            alert("File system full remove file to insert new item!");
+            if(this.props.busy) {
+                alert("File system busy, wait for current user to be done!");
+            }
+            else
+            {
+                alert("File system full remove file to insert new item!");
+            }
         }
     }
     // function for closing modal

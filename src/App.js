@@ -13,7 +13,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            files: []
+            files: [],
+            busy: true
         }
 
         // Functions for dealing with events such as insertion and deletion
@@ -26,28 +27,40 @@ class App extends Component {
     onSubmit = (event) => {
         event.preventDefault();
 
-        const data = new FormData(event.target);
-        const time = new Date(Date.now());
-        const time_str = data.get("creation_date");
+        if(!this.state.busy) {
+            const data = new FormData(event.target);
+            const time = new Date(Date.now());
+            const time_str = data.get("creation_date");
 
-        const creation_date = new Date(time_str + "T00:00");
-        console.log(creation_date.toLocaleString());
-        let file = {
-            name: data.get("filename"),
-            category: data.get("category"),
-            date: time.toLocaleString(),
-            creation_date: creation_date.toLocaleDateString(),
-            uuid: uuidv4(),
-            drawer: parseInt(data.get("drawer")),
+            const creation_date = new Date(time_str + "T00:00");
+            console.log(creation_date.toLocaleString());
+            let file = {
+                name: data.get("filename"),
+                category: data.get("category"),
+                date: time.toLocaleString(),
+                creation_date: creation_date.toLocaleDateString(),
+                uuid: uuidv4(),
+                drawer: parseInt(data.get("drawer")),
+            }
+
+            socket.emit('insert file', file);
         }
-
-        socket.emit('insert file', file);
+        else
+        {
+            alert("Device busy, wait for current user to be done!");
+        }
     }
 
 
     // on deletion of file (removal)
     onDelete = (uuid) => {
-        socket.emit('delete file', uuid);
+        if(!this.state.busy) {
+            socket.emit('delete file', uuid);
+        }
+        else
+        {
+            alert("Device busy, wait for current user to be done!");
+        }
     }
 
     // on close of drawer
@@ -72,7 +85,7 @@ class App extends Component {
         return (
             <div className="App">
                 <HeaderNavbar/>
-                <FileControl files={this.state.files} onSubmit={this.onSubmit} onClose={this.onClose} onDelete={this.onDelete} />
+                <FileControl files={this.state.files} onSubmit={this.onSubmit} onClose={this.onClose} onDelete={this.onDelete} busy={this.state.busy} />
             </div>
         );
     }
