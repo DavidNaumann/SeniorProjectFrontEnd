@@ -78,10 +78,10 @@ class Files extends Component {
             <div className="myFiles m-1">
                     <Row className="m-1">
                         <Col><b>#</b></Col>
-                        <Col><b>File</b> <a href="#file" onClick={() => this.setSortedField('name')} ><FontAwesomeIcon icon={faSort}/></a></Col>
-                        <Col className="d-none d-sm-block"><b>Insertion Date</b> <a href="#insertion_date" onClick={() => this.setSortedField('date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
-                        <Col className="d-none d-sm-block"><b>Creation Date</b> <a href="#creation_date" onClick={() => this.setSortedField('creation_date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
-                        <Col className="d-none d-sm-block"><b>Category</b> <a href="#category" onClick={()=> this.setSortedField("category")}><FontAwesomeIcon icon={faSort} /></a></Col>
+                        <Col><b>File</b> <a href="#" onClick={() => this.setSortedField('name')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Insertion Date</b> <a href="#" onClick={() => this.setSortedField('date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Creation Date</b> <a href="#" onClick={() => this.setSortedField('creation_date')} ><FontAwesomeIcon icon={faSort}/></a></Col>
+                        <Col className="d-none d-sm-block"><b>Category</b> <a href="#" onClick={()=> this.setSortedField("category")}><FontAwesomeIcon icon={faSort} /></a></Col>
                         <Col><b>Controls</b></Col>
                     </Row>
                     {listFiles}
