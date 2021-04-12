@@ -13,7 +13,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            files: [],
+            files: []
         }
 
         // Functions for dealing with events such as insertion and deletion
@@ -21,6 +21,8 @@ class App extends Component {
         this.onDelete = this.onDelete.bind(this);
     }
 
+
+    // on file form submission (put a new file in system)
     onSubmit = (event) => {
         event.preventDefault();
 
@@ -39,19 +41,27 @@ class App extends Component {
             drawer: parseInt(data.get("drawer")),
         }
 
-
         socket.emit('insert file', file);
     }
 
+
+    // on deletion of file (removal)
     onDelete = (uuid) => {
         socket.emit('delete file', uuid);
     }
 
+    // on close of drawer
+    onClose = () => {
+        socket.emit('close');
+    }
+
     componentDidMount() {
+        // on user connect
         socket.on("connect", () => {
             socket.emit('get files');
         });
 
+        // on the backend sending back files from my_sql database
         socket.on('receive files', (files) => {
             this.setState({files: files});
         });
@@ -62,7 +72,7 @@ class App extends Component {
         return (
             <div className="App">
                 <HeaderNavbar/>
-                <FileControl files={this.state.files} onSubmit={this.onSubmit} onDelete={this.onDelete} />
+                <FileControl files={this.state.files} onSubmit={this.onSubmit} onClose={this.onClose} onDelete={this.onDelete} />
             </div>
         );
     }
