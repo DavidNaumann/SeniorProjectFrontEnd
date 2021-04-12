@@ -1,21 +1,13 @@
-import {React, Component} from "react";
-import {Modal, Button, FormControl, Row, Col, InputGroup, OverlayTrigger, Tooltip, ButtonGroup} from "react-bootstrap";
+import {Component} from "react";
+import {Modal, Button} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes, faCheck} from "@fortawesome/free-solid-svg-icons";
+import { faCheck} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Form to fill out per file
  */
 class CloseDrawerForm extends Component
 {
-    constructor(props) {
-        super(props);
-
-    }
-
-
-
-
     onClose = () =>
     {
         this.props.onClose();

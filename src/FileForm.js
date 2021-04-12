@@ -1,5 +1,5 @@
 import {React, Component} from "react";
-import {Modal, Button, FormControl, Row, Col, InputGroup, OverlayTrigger, Tooltip, ButtonGroup} from "react-bootstrap";
+import {Modal, Button, FormControl, Row, Col, InputGroup, OverlayTrigger, Tooltip} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 

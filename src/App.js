@@ -78,6 +78,11 @@ class App extends Component {
         socket.on('receive files', (files) => {
             this.setState({files: files});
         });
+
+        socket.on('not busy', (busy) => {
+            console.log('not busy');
+            this.setState({busy: busy});
+        });
     }
 
 
