@@ -14,46 +14,37 @@ class Files extends Component {
         super(props);
 
         this.state = {
-            // set what to sort by
             setSorted: "name",
-            // set polarity of direction to sort (high to low, low to high)
             polarity: -1
         };
 
     }
 
-    // parses file from files array and presents it as a row
     createFiles(file, index) {
         return (
             <File file={file} index={index} onDelete={this.onDelete} />
         )
     }
 
-    // on deletion call of a file
     onDelete = (uuid) => {
         this.props.onDelete(uuid);
     }
 
-    // sets what field to sort by by the icons on the row headers
     setSortedField = (field) => {
         this.setState({setSorted: field, polarity: this.state.polarity*-1});
     }
 
     render() {
-        // gets local instance of files and search
         let files = this.props.files;
         let search = this.props.search;
 
-        // if search exists filter by it
         if (search) {
             files = files.filter(x => (x.name.toLowerCase()+x.date+x.creation_date+x.category.toLowerCase()).includes(search.toLowerCase()));
         }
 
-        // get the key of what to sort by and polarity of which way to sort
         let key = this.state.setSorted;
         let polarity = this.state.polarity;
 
-        // sort by key
         files.sort(function (a, b) {
 
             let keyA = a[key].toLowerCase();
@@ -70,20 +61,18 @@ class Files extends Component {
             return 0
         });
 
-
-        // list the files by mapping through it and creating File objects
         let listFiles = files.map((item, index) =>
         {
             return this.createFiles(item, index)
         });
 
-        // display no file currently loaded well if no files loaded
-        if(files.length === 0) {
-            listFiles = (<Row className="m-1">
-                    <Col>No files currently loaded</Col>
-                </Row>
-            );
-        }
+        // TODO: better error handling/showing what is wrong (not connected, no files, etc.)
+            if(files.length === 0) {
+                listFiles = (<Row className="m-1">
+                        <Col>No files currently loaded</Col>
+                    </Row>
+                );
+            }
 
         return (
             <div className="myFiles m-1">

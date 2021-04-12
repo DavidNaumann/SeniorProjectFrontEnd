@@ -14,7 +14,6 @@ class File extends Component {
         this.index = props.index;
     }
 
-    // on deletion of file get uuid and send it to be deleted
     onDelete = () => {
         let uuid = this.props.file.uuid;
         this.props.onDelete(uuid);
